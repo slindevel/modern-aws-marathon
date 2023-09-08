@@ -1,0 +1,43 @@
+# Day4/cf-s3-conditions-demo.yaml
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create S3 Bucket named 'slin-cf-s3-demo'
+
+Parameters:
+  BucketName:
+    # Default: slin-cf-s3-demo
+    Type: String
+    Description: 'A bucket name to set.'
+  Environment:
+    Type: String
+    AllowedValues:
+      - Dev
+      - Test
+      - Prod
+    Description: 'Select an environment.'
+
+Mappings:
+  EnvironmentToBucketSuffix:
+    Dev:
+      Suffix: 'this-is-dev'
+    Test:
+      Suffix: 'use-only-for-testing'
+    Prod:
+      Suffix: 'be-careful-it-is-production'
+
+Conditions:
+  isProduction: !Equals [ !Ref Environment, Prod]
+
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !If [ isProduction, slin-cf-s3-prod, slin-cf-s3-demo ]
+      VersioningConfiguration:
+        Status: Enabled
+
+Outputs:
+  MyStacksRegion:
+    Value: !Ref 'AWS::Region'
+  BucketARN:
+    Description: 'The ARN of the bucket.'
+    Value: !GetAtt S3Bucket.Arn

@@ -1,0 +1,24 @@
+# Day4/cf-s3-outputs-demo.yaml
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create S3 Bucket named 'slin-cf-s3-demo'
+
+Parameters:
+  BucketName:
+    # Default: slin-cf-s3-demo
+    Type: String
+    Description: 'A bucket name to set.'
+
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Ref BucketName
+      VersioningConfiguration:
+        Status: Enabled
+
+Outputs:
+  MyStacksRegion:
+    Value: !Ref 'AWS::Region'
+  BucketARN:
+    Description: 'The ARN of the bucket.'
+    Value: !GetAtt S3Bucket.Arn

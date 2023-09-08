@@ -1,0 +1,11 @@
+# Day4/cf-s3-demo.yaml
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create S3 Bucket named 'slin-cf-s3-demo'
+
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: slin-cf-s3-demo
+      VersioningConfiguration:
+        Status: Enabled
