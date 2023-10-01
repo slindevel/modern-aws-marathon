@@ -206,8 +206,8 @@ Resources:
   AlgorithmicTradingInstance:
     Type: AWS::SageMaker::NotebookInstance
     Properties:
-      InstanceType: ml.t2.large
-      DefaultCodeRepository: https://github.com/aws-samples/algorithmic-trading
+      InstanceType: ml.t2.medium
+      DefaultCodeRepository: https://github.com/slindevel/modern-aws-marathon.git
       RoleArn: !GetAtt 'SageMakerExecutionRole.Arn'
 
   S3Policy:
